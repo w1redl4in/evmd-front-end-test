@@ -20,4 +20,4 @@ O nome do banco de dados, para criar a conexão, está salvo dentro das variáve
 - Tornar funcional o botão ‘Favorito’, persistindo o booleano no banco 
 
 ## Desejável
-- Utilizar as melhores práticas para performance de melhor desempenho do app.
+- Utilizar as melhores práticas para aumento de desempenho do app.
