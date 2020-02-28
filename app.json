@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "EMVD Front-End Test",
+    "slug": "evmd-front-end-test",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/icon.png",
+    "splash": {
+      "image": "./src/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "extra": {
+      "env": {
+        "DB_NAME": "front-end-test.db"
+      }
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "packagerOpts": {
+      "assetExts": [
+        "db"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
