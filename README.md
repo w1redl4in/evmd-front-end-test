@@ -7,7 +7,7 @@
 ## Desafio
 Dentro do projeto criado existem duas telas que serão a base do desafio: Home e Details.
 
-O desafio consiste em fazer a leitura da única tabela do banco de dados (SQLite) existente na aplicação e criar uma listagem dos usuários desta tabela na tela *Home*. Ao clicar em um destes usuários, o aplicativo deverá abrir a tela *Details* com os detalhes do usuário selecionado anteriormente.
+O desafio consiste em fazer a leitura da única tabela do banco de dados (SQLite) existente na aplicação e criar uma listagem dos usuários desta tabela na tela *Home*. Ao clicar em um destes usuários, o aplicativo deverá abrir a tela *Details* com os detalhes do usuário selecionado anteriormente onde seja possível marcar um usuário como favorito ou não através do botão já criado na tela, atualizando a coluna de favorito no banco de dados.
 
 O nome do banco de dados, para criar a conexão, está salvo dentro das variáveis de ambiente.
 
