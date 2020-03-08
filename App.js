@@ -11,7 +11,5 @@ export default function App() {
     initializeDB();
   }, []);
 
-  return (
-    <Routes />
-  );
+  return <Routes />;
 }
