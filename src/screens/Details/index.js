@@ -1,11 +1,15 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   View, Image, StyleSheet, Text, TouchableOpacity,
 } from 'react-native';
 
-const Details = () => {
-  const user = useSelector((state) => state.users.user);
+const Details = ({ route }) => {
+  const { userId } = route.params;
+  const user = useSelector((state) => state.users.user.find((u) => u._id === userId));
 
   return (
     <View style={styles.container}>
@@ -17,8 +21,10 @@ const Details = () => {
           style={styles.image}
         />
       </View>
+      {/* {users.map((user) => ( */}
       <View
         style={styles.detailsContainer}
+        key={user._id}
       >
         <Text>
           Nome:&nbsp;
@@ -34,7 +40,7 @@ const Details = () => {
         </Text>
         <Text>
           Salário:&nbsp;
-          {user.paycheck}
+          {user.balance}
         </Text>
         <Text>
           Latitude:&nbsp;
@@ -44,17 +50,22 @@ const Details = () => {
           Longitude:&nbsp;
           {user.longitude}
         </Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            user.favorite = !user.favorite;
+          }}
+        >
+          <Text>Favorito</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.button}
-      >
-        <Text>
-          Favorito
-          {user.favorite}
-        </Text>
-      </TouchableOpacity>
+      {/* ))} */}
     </View>
   );
+};
+
+Details.propTypes = {
+  route: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
 const styles = StyleSheet.create({

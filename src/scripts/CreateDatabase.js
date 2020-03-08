@@ -2,7 +2,7 @@ import * as FileSystem from 'expo-file-system';
 import Constants from 'expo-constants';
 import { Asset } from 'expo-asset';
 
-const db = require('../assets/front-end-test.db');
+const db = require('../assets/frontendtest.db');
 
 const { DB_NAME } = Constants.manifest.extra.env;
 
@@ -21,5 +21,6 @@ export default async () => {
     }
   } catch (e) {
     console.log('error', e);
+    throw new Error(e);
   }
 };
