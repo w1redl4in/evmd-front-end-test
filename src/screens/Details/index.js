@@ -1,37 +1,70 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   View, Image, StyleSheet, Text, TouchableOpacity,
 } from 'react-native';
 
-const Details = () => (
-  <View style={styles.container}>
-    <View>
-      <Image
-        source={{
-          uri: 'http://placehold.it/1024x1024',
-        }}
-        style={styles.image}
-      />
+const Details = ({ route }) => {
+  const { userId } = route.params;
+  const user = useSelector((state) => state.users.users.find((u) => u._id === userId));
+
+  return (
+    <View style={styles.container}>
+      <View>
+        <Image
+          source={{
+            uri: 'http://placehold.it/1024x1024',
+          }}
+          style={styles.image}
+        />
+      </View>
+      <View
+        style={styles.detailsContainer}
+        key={user._id}
+      >
+        <Text>
+          Nome:&nbsp;
+          {user.name}
+        </Text>
+        <Text>
+          E-mail:&nbsp;
+          {user.email}
+        </Text>
+        <Text>
+          Idade:&nbsp;
+          {user.age}
+        </Text>
+        <Text>
+          Salário:&nbsp;
+          {user.balance}
+        </Text>
+        <Text>
+          Latitude:&nbsp;
+          {user.latitude}
+        </Text>
+        <Text>
+          Longitude:&nbsp;
+          {user.longitude}
+        </Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            user.favorite = !user.favorite;
+          }}
+        >
+          <Text>Favorito</Text>
+        </TouchableOpacity>
+      </View>
     </View>
-    <View
-      style={styles.detailsContainer}
-    >
-      <Text>Nome: Ighor</Text>
-      <Text>E-mail: email@email.com</Text>
-      <Text>Idade: 23</Text>
-      <Text>Salário: 1,767.09</Text>
-      <Text>Latitude: 66.701576</Text>
-      <Text>Longitude: 178.865541</Text>
-    </View>
-    <TouchableOpacity
-      style={styles.button}
-    >
-      <Text>
-        Favorito
-      </Text>
-    </TouchableOpacity>
-  </View>
-);
+  );
+};
+
+Details.propTypes = {
+  route: PropTypes.oneOfType([PropTypes.object]).isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {

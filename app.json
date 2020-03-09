@@ -19,7 +19,7 @@
     },
     "extra": {
       "env": {
-        "DB_NAME": "front-end-test.db"
+        "DB_NAME": "frontendtest.db"
       }
     },
     "updates": {
