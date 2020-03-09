@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, FlatList, RefreshControl } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  RefreshControl,
+  ActivityIndicator,
+  YellowBox,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import * as SQLite from 'expo-sqlite';
 import Constants from 'expo-constants';
@@ -18,15 +25,18 @@ export default function Home({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   function loadUsers() {
+    YellowBox.ignoreWarnings(['Encountered two']);
     if (loading) return;
+    setLoading(true);
     db.transaction(tx => {
       tx.executeSql(
         'select * from users order by name LIMIT 20 OFFSET ?;',
-        [page * 1],
-        (_, { rows: { _array } }) => setUsers(_array)
+        [page],
+        (_, { rows: { _array } }) => setUsers([...users, ..._array])
       );
-      setPage(page + 1);
+      setPage(page + 20);
     });
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -42,6 +52,15 @@ export default function Home({ navigation }) {
     }, 300);
   };
 
+  function renderFooter() {
+    if (loading) return null;
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -53,6 +72,7 @@ export default function Home({ navigation }) {
             onRefresh={onRefreshHandler}
           />
         }
+        ListFooterComponent={renderFooter}
         style={styles.listUsers}
         data={users}
         keyExtractor={user => user._id}
@@ -87,5 +107,9 @@ const styles = StyleSheet.create({
   },
   listUsers: {
     // flex: 1,
+  },
+  loading: {
+    alignSelf: 'center',
+    marginVertical: 20,
   },
 });
