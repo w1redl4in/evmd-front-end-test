@@ -7,14 +7,14 @@ import PropTypes from 'prop-types';
 
 const UserCard = ({
   name, email, age, picture, onPress,
-}) => {
+}) =>
   // const requestedData = () => {
   //   axios
   //     .get('https://jsonplaceholder.typicode.com/users')
   //     .then((data) => console.log('D.A.T.A =>', data))
   //     .catch((error) => console.log(error));
   // };
-  return (
+  (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <View>
         <Image
@@ -28,8 +28,6 @@ const UserCard = ({
       </View>
     </TouchableOpacity>
   );
-};
-
 UserCard.propTypes = {
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
@@ -41,18 +39,20 @@ UserCard.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#e5e5e5',
     padding: 15,
     borderRadius: 5,
     width: '100%',
     borderColor: '#e9e9e9',
+    marginTop: 5,
   },
   image: {
     borderRadius: 5,
     width: 50,
     height: 50,
+    marginRight: 10,
   },
 });
 

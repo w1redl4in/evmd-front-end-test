@@ -9,8 +9,7 @@ import { UserCard } from '../../components';
 
 
 const Home = ({ navigation }) => {
-  console.log(navigation)
-  const users = useSelector((state) => state.users.user);
+  const users = useSelector((state) => state.users.users);
   const dispatch = useDispatch();
 
   useEffect(() => {

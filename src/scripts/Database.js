@@ -30,7 +30,7 @@ export const init = () => {
 //   return promise;
 // };
 
-export const fetchUsers = () => {
+export const fetchUsersFromDB = () => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(

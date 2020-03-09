@@ -1,7 +1,7 @@
 import { FETCH_USERS } from '../actions/users';
 
 const initialState = {
-  user: [{
+  users: [{
     _id: '1',
     name: 'Zé',
     email: 'ze@ze.com',
@@ -38,7 +38,8 @@ const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_USERS:
       return {
-        user: [...state, state.users],
+        ...state,
+        users: state.users,
       };
     default:
       return state;

@@ -9,7 +9,7 @@ import {
 
 const Details = ({ route }) => {
   const { userId } = route.params;
-  const user = useSelector((state) => state.users.user.find((u) => u._id === userId));
+  const user = useSelector((state) => state.users.users.find((u) => u._id === userId));
 
   return (
     <View style={styles.container}>
@@ -21,7 +21,6 @@ const Details = ({ route }) => {
           style={styles.image}
         />
       </View>
-      {/* {users.map((user) => ( */}
       <View
         style={styles.detailsContainer}
         key={user._id}
@@ -59,7 +58,6 @@ const Details = ({ route }) => {
           <Text>Favorito</Text>
         </TouchableOpacity>
       </View>
-      {/* ))} */}
     </View>
   );
 };

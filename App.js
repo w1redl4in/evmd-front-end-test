@@ -6,15 +6,11 @@ import Thunk from 'redux-thunk';
 import { CreateDatabase } from './src/scripts';
 import usersReducer from './src/store/reducers/users';
 import Routes from './src/routes';
-import { init, fetchUsers } from './src/scripts/Database';
+import { init } from './src/scripts/Database';
 
 init()
-  .then((data) => console.log('=> **DATABASE RUNNING** =)', data))
-  .catch((err) => console.log('=( DATABASE BROKEDOWN **', err));
-
-// fetchUsers()
-//   .then((data) => console.log('=> DATABASE FETCHING =)', data))
-//   .catch((err) => console.log('=( DATABASE BROKEDOWN **', err));
+  .then((data) => console.log('=) **^^DATABASE RUNNING^^** =)', data))
+  .catch((err) => console.log('=( |-| DATABASE BROKEDOWN |-| **', err));
 
 
 const rootReducer = combineReducers({
