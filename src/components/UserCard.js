@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
-const UserCard = ({ name, email, age, picture, onPress }) => (
+const UserCard = ({ name, email, age, picture, favorite, onPress }) => (
   <TouchableOpacity style={styles.container} onPress={onPress}>
     <View>
       <Image source={{ uri: picture }} style={styles.image} />
@@ -10,6 +10,7 @@ const UserCard = ({ name, email, age, picture, onPress }) => (
     <View>
       <Text>{`${name}, ${age}`}</Text>
       <Text>{email}</Text>
+      <Text>Favoritos: {favorite}</Text>
     </View>
   </TouchableOpacity>
 );
@@ -19,6 +20,7 @@ UserCard.propTypes = {
   email: PropTypes.string.isRequired,
   age: PropTypes.number.isRequired,
   picture: PropTypes.string.isRequired,
+  favorite: PropTypes.number.isRequired,
   onPress: PropTypes.func.isRequired,
 };
 

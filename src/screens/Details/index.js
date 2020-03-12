@@ -1,14 +1,42 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
+import { View, Image, Text, TouchableOpacity, Alert } from 'react-native';
 import { useSelector } from 'react-redux';
-import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+
+import * as SQLite from 'expo-sqlite';
+import Constants from 'expo-constants';
+
+import styles from './styles';
+
+const { DB_NAME } = Constants.manifest.extra.env;
+
+const db = SQLite.openDatabase(DB_NAME);
 
 export default function Details() {
   const user = useSelector(state => state.users);
 
+  function handleClickFav(id) {
+    db.transaction(tx => {
+      tx.executeSql(
+        `update users set favorite = favorite + 1 where _id = ?`,
+        [id],
+        (tx, results) => {
+          if (results.rowsAffected > 0) {
+            Alert.alert('Usuário favoritado');
+          } else {
+            Alert.alert('Falha ao favoritar');
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    });
+  }
+
   return (
     <View style={styles.container}>
       <View>
-        {console.log(user.email)}
         <Image
           source={{
             uri: user.picture,
@@ -24,38 +52,14 @@ export default function Details() {
         <Text>Latitude: {user.latitude}</Text>
         <Text>Longitude: {user.longitude}</Text>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          handleClickFav(user.id);
+        }}
+      >
         <Text>Favorito</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    padding: 15,
-    backgroundColor: '#f3f3f3',
-  },
-  detailsContainer: {
-    width: '100%',
-    borderRadius: 5,
-    padding: 10,
-    marginTop: 15,
-    backgroundColor: '#e5e5e5',
-  },
-  image: {
-    width: 200,
-    height: 200,
-  },
-  button: {
-    borderRadius: 5,
-    padding: 10,
-    marginTop: 15,
-    borderWidth: 1,
-    borderColor: '#b1b1b1',
-    backgroundColor: '#e5e5e5',
-  },
-});

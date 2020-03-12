@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
-  StyleSheet,
   FlatList,
   RefreshControl,
   ActivityIndicator,
   YellowBox,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import * as SQLite from 'expo-sqlite';
 import Constants from 'expo-constants';
-import { useDispatch } from 'react-redux';
 
 import { UserCard } from '../../components';
+import styles from './styles';
 
 import { Creators as UserActions } from '../../store/ducks/users';
 
@@ -66,8 +66,6 @@ export default function Home({ navigation }) {
   }
 
   function handleClickUser(user) {
-    // console.log(user._id, user.name);
-
     dispatch(
       UserActions.chooseUser({
         id: user._id,
@@ -103,6 +101,7 @@ export default function Home({ navigation }) {
             name={item.name}
             age={item.age}
             email={item.email}
+            favorite={item.favorite}
             picture={item.picture}
             onPress={() => {
               handleClickUser(item);
@@ -117,21 +116,3 @@ export default function Home({ navigation }) {
 Home.propTypes = {
   navigation: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 10,
-    marginBottom: 10,
-    backgroundColor: '#f3f3f3',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 15,
-  },
-  listUsers: {
-    // flex: 1,
-  },
-  loading: {
-    alignSelf: 'center',
-    marginVertical: 20,
-  },
-});
