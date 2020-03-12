@@ -1,37 +1,35 @@
 import React from 'react';
-import {
-  View, Image, StyleSheet, Text, TouchableOpacity,
-} from 'react-native';
+import { useSelector } from 'react-redux';
+import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const Details = () => (
-  <View style={styles.container}>
-    <View>
-      <Image
-        source={{
-          uri: 'http://placehold.it/1024x1024',
-        }}
-        style={styles.image}
-      />
+export default function Details() {
+  const user = useSelector(state => state.users);
+
+  return (
+    <View style={styles.container}>
+      <View>
+        {console.log(user.email)}
+        <Image
+          source={{
+            uri: user.picture,
+          }}
+          style={styles.image}
+        />
+      </View>
+      <View style={styles.detailsContainer}>
+        <Text>Nome: {user.name}</Text>
+        <Text>E-mail: {user.email}</Text>
+        <Text>Idade: {user.age}</Text>
+        <Text>Salário: {user.balance}</Text>
+        <Text>Latitude: {user.latitude}</Text>
+        <Text>Longitude: {user.longitude}</Text>
+      </View>
+      <TouchableOpacity style={styles.button}>
+        <Text>Favorito</Text>
+      </TouchableOpacity>
     </View>
-    <View
-      style={styles.detailsContainer}
-    >
-      <Text>Nome: Ighor</Text>
-      <Text>E-mail: email@email.com</Text>
-      <Text>Idade: 23</Text>
-      <Text>Salário: 1,767.09</Text>
-      <Text>Latitude: 66.701576</Text>
-      <Text>Longitude: 178.865541</Text>
-    </View>
-    <TouchableOpacity
-      style={styles.button}
-    >
-      <Text>
-        Favorito
-      </Text>
-    </TouchableOpacity>
-  </View>
-);
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -61,5 +59,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#e5e5e5',
   },
 });
-
-export default Details;

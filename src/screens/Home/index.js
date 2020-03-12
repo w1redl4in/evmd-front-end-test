@@ -10,15 +10,19 @@ import {
 import PropTypes from 'prop-types';
 import * as SQLite from 'expo-sqlite';
 import Constants from 'expo-constants';
+import { useDispatch } from 'react-redux';
+
 import { UserCard } from '../../components';
 
-// import { Container } from './styles';
+import { Creators as UserActions } from '../../store/ducks/users';
 
 const { DB_NAME } = Constants.manifest.extra.env;
 
 const db = SQLite.openDatabase(DB_NAME);
 
 export default function Home({ navigation }) {
+  const dispatch = useDispatch();
+
   const [users, setUsers] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(0);
@@ -61,6 +65,24 @@ export default function Home({ navigation }) {
     );
   }
 
+  function handleClickUser(user) {
+    // console.log(user._id, user.name);
+
+    dispatch(
+      UserActions.chooseUser({
+        id: user._id,
+        picture: user.picture,
+        name: user.name,
+        email: user.email,
+        age: user.age,
+        balance: user.balance,
+        latitude: user.latitude,
+        longitude: user.longitude,
+      })
+    );
+    navigation.navigate('Details');
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -83,7 +105,7 @@ export default function Home({ navigation }) {
             email={item.email}
             picture={item.picture}
             onPress={() => {
-              navigation.navigate('Details');
+              handleClickUser(item);
             }}
           />
         )}
