@@ -1,0 +1,4 @@
+export default {
+  USER_REQUEST: 'USER_REQUEST',
+  USER_PROFILE: 'USER_PROFILE',
+}
