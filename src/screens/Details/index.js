@@ -1,65 +1,65 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
-import {
-  View, Image, StyleSheet, Text, TouchableOpacity,
-} from 'react-native';
+import { View, Image, Text, TouchableOpacity, Alert } from 'react-native';
+import { useSelector } from 'react-redux';
 
-const Details = () => (
-  <View style={styles.container}>
-    <View>
-      <Image
-        source={{
-          uri: 'http://placehold.it/1024x1024',
+import * as SQLite from 'expo-sqlite';
+import Constants from 'expo-constants';
+
+import styles from './styles';
+
+const { DB_NAME } = Constants.manifest.extra.env;
+
+const db = SQLite.openDatabase(DB_NAME);
+
+export default function Details() {
+  const user = useSelector(state => state.users);
+
+  function handleClickFav(id) {
+    db.transaction(tx => {
+      tx.executeSql(
+        `update users set favorite = favorite + 1 where _id = ?`,
+        [id],
+        (tx, results) => {
+          if (results.rowsAffected > 0) {
+            Alert.alert('Usuário favoritado');
+          } else {
+            Alert.alert('Falha ao favoritar');
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    });
+  }
+
+  return (
+    <View style={styles.container}>
+      <View>
+        <Image
+          source={{
+            uri: user.picture,
+          }}
+          style={styles.image}
+        />
+      </View>
+      <View style={styles.detailsContainer}>
+        <Text>Nome: {user.name}</Text>
+        <Text>E-mail: {user.email}</Text>
+        <Text>Idade: {user.age}</Text>
+        <Text>Salário: {user.balance}</Text>
+        <Text>Latitude: {user.latitude}</Text>
+        <Text>Longitude: {user.longitude}</Text>
+      </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          handleClickFav(user.id);
         }}
-        style={styles.image}
-      />
+      >
+        <Text>Favorito</Text>
+      </TouchableOpacity>
     </View>
-    <View
-      style={styles.detailsContainer}
-    >
-      <Text>Nome: Ighor</Text>
-      <Text>E-mail: email@email.com</Text>
-      <Text>Idade: 23</Text>
-      <Text>Salário: 1,767.09</Text>
-      <Text>Latitude: 66.701576</Text>
-      <Text>Longitude: 178.865541</Text>
-    </View>
-    <TouchableOpacity
-      style={styles.button}
-    >
-      <Text>
-        Favorito
-      </Text>
-    </TouchableOpacity>
-  </View>
-);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    padding: 15,
-    backgroundColor: '#f3f3f3',
-  },
-  detailsContainer: {
-    width: '100%',
-    borderRadius: 5,
-    padding: 10,
-    marginTop: 15,
-    backgroundColor: '#e5e5e5',
-  },
-  image: {
-    width: 200,
-    height: 200,
-  },
-  button: {
-    borderRadius: 5,
-    padding: 10,
-    marginTop: 15,
-    borderWidth: 1,
-    borderColor: '#b1b1b1',
-    backgroundColor: '#e5e5e5',
-  },
-});
-
-export default Details;
+  );
+}

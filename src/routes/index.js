@@ -22,22 +22,13 @@ import { Home, Details } from '../screens';
 
 // export default createAppContainer(Navigation);
 
-
 const Stack = createStackNavigator();
 
 function MyStack() {
   return (
-    <Stack.Navigator
-      initialRouteName="Home"
-    >
-      <Stack.Screen
-        name="Home"
-        component={Home}
-      />
-      <Stack.Screen
-        name="Details"
-        component={Details}
-      />
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   );
 }
