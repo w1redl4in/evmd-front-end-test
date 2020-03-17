@@ -2,10 +2,7 @@ module.exports = {
   env: {
     es6: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-  ],
+  extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -17,11 +14,9 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ['react'],
   rules: {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "no-use-before-define": ["error", { "variables": false }]
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'no-use-before-define': ['error', { variables: false }],
   },
 };
