@@ -14,10 +14,7 @@ export default async () => {
 
     if (!info.exists) {
       FileSystem.makeDirectoryAsync(`${FileSystem.documentDirectory}SQLite`);
-      await FileSystem.downloadAsync(
-        Asset.fromModule(db).uri,
-        DB_URI,
-      );
+      await FileSystem.downloadAsync(Asset.fromModule(db).uri, DB_URI);
     }
   } catch (e) {
     console.log('error', e);

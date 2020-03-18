@@ -1,5 +1,5 @@
 import CreateDatabase from './CreateDatabase';
 
-export {
+export default {
   CreateDatabase,
 };
